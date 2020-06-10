@@ -1,11 +1,11 @@
-package arrays;
+package app;
 
 import java.util.ArrayList;
 
 // Problem: Given a sorted array of integers, find two numbers in the array that sumto a given integer target.
 // For example, if a = [1,2,3,5,6,7] and target = 11, the answer will be 5 and 6
 
-public class TwoSum {
+public class Arrays_TwoSum {
     public static void main(String[] args) throws Exception {
        System.out.println(twoSum(new int[]{1,2,3,5},4)) ; 
     }
