@@ -79,3 +79,47 @@ class Solution {
         return gnode;
     }
 }
+
+// Using backtracking.
+
+class Solution {
+  public boolean canFinish(int numCourses, int[][] prerequisites) {
+      HashMap<Integer, List<Integer>> courseGraph = new HashMap();
+      for(int[] currCourse: prerequisites){
+         if(courseGraph.containsKey(currCourse[1])){
+             courseGraph.get(currCourse[1]).add(currCourse[0]);
+         } else{
+             List<Integer> neighbors = new LinkedList();
+             neighbors.add(currCourse[0]);
+             courseGraph.put(currCourse[1], neighbors);
+         }
+      }
+      
+      boolean[] path = new boolean[numCourses];
+      
+      for(int curr = 0; curr < numCourses; curr++) {
+        if(isCyclic(curr, path, courseGraph)) {
+            return false;
+        }
+      }
+     
+      return true;
+  }
+    
+    public boolean isCyclic(int course, boolean[] path, HashMap<Integer, List<Integer>> graphDict){
+        if(path[course] == true) 
+            return true;
+        if(!graphDict.containsKey(course))
+            return false;
+        
+        path[course] = true;
+        boolean ret = false;
+        for(int depCourse: graphDict.get(course)){
+            ret = isCyclic(depCourse, path, graphDict);
+            if(ret) break;
+        }
+        path[course] = false;
+        
+        return ret;
+    }
+}
