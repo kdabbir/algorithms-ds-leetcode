@@ -52,6 +52,9 @@ class Solution {
         for(int i = 0; i < rowLength; i++){
             for(int j = 0; j < colLength; j++){
              if(atlVisited[i][j] && pacVisited[i][j]){
+                //  ArrayList<Integer> currArr = new  ArrayList<Integer>();
+                //  currArr.add(i);
+                //  currArr.add(j);
                  output.add(new ArrayList<>(Arrays.asList(i, j)););
              }   
             }
