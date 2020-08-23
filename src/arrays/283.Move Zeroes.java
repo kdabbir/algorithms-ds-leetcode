@@ -11,6 +11,9 @@
 // You must do this in-place without making a copy of the array.
 // Minimize the total number of operations.
 
+
+//Approach1: Shifting all non-zero to left partition and marking rest as 0.
+
 class Solution {
     public void moveZeroes(int[] nums) {
         int start = 0;
@@ -20,5 +23,21 @@ class Solution {
            } 
         }
         while (start < nums.length) nums[start++] = 0;
+    }
+}
+
+
+//Approach 2: Swapping all non-zeros to left partition. Zeros will be left at the end.
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int start = 0;
+        for(int i=0; i < nums.length; i++) {
+            if(nums[i] != 0){
+                int temp = nums[start];
+                nums[start] = nums[i];
+                nums[i] = temp;
+                start++;
+            }
+        }
     }
 }
