@@ -36,3 +36,27 @@ class Solution {
         return maxLen;
     }
 }
+
+
+///
+// The simplest approach is to try to find all increasing subsequences and then returning the maximum length of longest increasing subsequence. In order to do this, we make use of a recursive function \text{lengthofLIS}lengthofLIS which returns the length of the LIS possible from the current element(corresponding to curposcurpos) onwards(including the current element). Inside each function call, we consider two cases:
+// currPosLen: The current element is larger than the previous element included in the LIS. In this case, we can include the current element in the LIS. Thus, we find out the length of the LIS obtained by including it. Further, we also find out the length of LIS possible by not including the current element in the LIS. The value returned by the current function call is, thus, the maximum out of the two lengths.
+// prevPosLen: The current element is smaller than the previous element included in the LIS. In this case, we can't include the current element in the LIS. Thus, we find out only the length of the LIS possible by not including the current element in the LIS, which is returned by the current function call.
+
+// Brute Force
+// Time: O(2n),  space: O(n2)
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        return recurseLIS(nums, Integer.MIN_VALUE, 0);
+    }
+
+    public int recurseLIS(int[] nums, int prevLen, int currPos) {
+        if(currPos == nums.length) return 0;
+        int currPosLen = 0, prevPosLen = 0;
+        if(nums[currPos] > prevLen) { 
+            currPosLen = 1 + recurseLIS(nums, nums[currPos], currPos + 1);
+        }
+        prevPosLen = recurseLIS(nums, prevLen, currPos + 1);
+        return Math.max(currPosLen, prevPosLen);
+    }
+}
