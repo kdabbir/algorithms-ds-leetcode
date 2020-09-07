@@ -18,22 +18,45 @@
 // Approach 1: Dynamic Programming with Binary Search
 // Time complexity: O(NLogN)
 // Space:O(N)
+// tails is an array storing the smallest tail of all increasing subsequences with length i+1 in tails[i].
+// For example, say we have nums = [4,5,6,3], then all the available increasing subsequences are:
 
-class Solution {
-    public int lengthOfLIS(int[] nums) {
-        if(nums == null || nums.length == 0) return 0;
-        int[] dp = new int[nums.length];
-        int maxLen = 0;
-        for(int num : nums) {
-            int index = Arrays.binarySearch(dp, 0, maxLen, num);
-            if(index < 0) index = -(index + 1);
-            dp[index] = num;
-            if(index == maxLen) maxLen++;
-        }
-        return maxLen;
+// len = 1   :      [4], [5], [6], [3]   => tails[0] = 3
+// len = 2   :      [4, 5], [5, 6]       => tails[1] = 5
+// len = 3   :      [4, 5, 6]            => tails[2] = 6
+// We can easily prove that tails is a increasing array. Therefore it is possible to do a binary search in tails array to find the one needs update.
+
+// Each time we only do one of the two:
+
+// (1) if x is larger than all tails, append it, increase the size by 1
+// (2) if tails[i-1] < x <= tails[i], update tails[i]
+// Doing so will maintain the tails invariant. The the final answer is just the size.
+
+
+public int lengthOfLIS(int[] nums) {
+    if(nums == null || nums.length == 0) return 0;
+    int[] dp = new int[nums.length];
+    int maxLen = 0;
+    for(int num : nums) {
+        int index = binarySearch(dp, 0, maxLen, num);
+        if(index < 0) index = -(index + 1);
+        dp[index] = num;
+        if(index == maxLen) maxLen++;
     }
+    return maxLen;
 }
 
+public int binarySearch(int[] arr, int start, int end, int key) {
+    while(start != end) {
+        int mid = start + (end-start)/2;
+        if(arr[mid] < key) {
+            start = mid + 1;
+        } else {
+            end = mid;
+        }
+    }
+   return start;
+}
 
 // Approach 2: Bottom up DP
 // O(n2) time complexity
