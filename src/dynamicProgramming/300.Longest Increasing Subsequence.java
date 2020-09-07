@@ -26,6 +26,8 @@
 // len = 3   :      [4, 5, 6]            => tails[2] = 6
 // We can easily prove that tails is a increasing array. Therefore it is possible to do a binary search in tails array to find the one needs update.
 
+// For example [10,9,2,5,3,7,101,18], dp array will have values 2 , 3, 7, 18
+
 // Each time we only do one of the two:
 
 // (1) if x is larger than all tails, append it, increase the size by 1
@@ -38,9 +40,23 @@ public int lengthOfLIS(int[] nums) {
     int[] dp = new int[nums.length];
     int maxLen = 0;
     for(int num : nums) {
+             /**
+             * search in a bounded array dp[0..len) to find the index of the
+             * insert point for the current num
+             */
         int index = binarySearch(dp, 0, maxLen, num);
+
+            /**
+             * if the element is not in the bounded array dp[0..len), then
+             * we get the index of the insert point using a conversion.
+             */
         if(index < 0) index = -(index + 1);
         dp[index] = num;
+
+        /**
+        * if the updated element is the last element, then the length of
+        * the LIS may be updated, it is always equal to idx+1. Also, here we are checking index vs length, hence index == length.
+        */
         if(index == maxLen) maxLen++;
     }
     return maxLen;
