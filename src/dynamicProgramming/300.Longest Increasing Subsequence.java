@@ -15,6 +15,26 @@
 // Follow up: Could you improve it to O(n log n) time complexity?
 
 
+// Approach 1: Dynamic Programming with Binary Search
+// Time complexity: O(NLogN)
+// Space:O(N)
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        int[] dp = new int[nums.length];
+        int maxLen = 0;
+        for(int num : nums) {
+            int index = Arrays.binarySearch(dp, 0, maxLen, num);
+            if(index < 0) index = -(index + 1);
+            dp[index] = num;
+            if(index == maxLen) maxLen++;
+        }
+        return maxLen;
+    }
+}
+
+
 // Approach 2: Bottom up DP
 // O(n2) time complexity
 // O(n) Space complexity
@@ -41,7 +61,7 @@ class Solution {
 
 // Approach 3: Recursion with Memoization
 // Algorithm
-// In the previous approach, many recursive calls had to made again and again with the same parameters. This redundancy can be eliminated by storing the results obtained for a particular call in a 2-d memoization array memomemo. memo[i][j]memo[i][j] represents the length of the LIS possible using nums[i]nums[i] as the previous element considered to be included/not included in the LIS, with nums[j]nums[j] as the current element considered to be included/not included in the LIS. Here, numsnums represents the given array.
+// In the previous approach, many recursive calls had to made again and again with the same parameters. This redundancy can be eliminated by storing the results obtained for a particular call in a 2-d memoization array memomemo. memo[i][j]  represents the length of the LIS possible using nums[i] as the previous element considered to be included/not included in the LIS, with nums[j] as the current element considered to be included/not included in the LIS. Here, numsnums represents the given array.
 // Time: O(n2) Space: O(n2)
 
 class Solution {
