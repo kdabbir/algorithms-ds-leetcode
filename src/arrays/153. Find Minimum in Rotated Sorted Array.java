@@ -38,3 +38,13 @@ public class Solution {
         return num[start];
     }
 }
+
+// Time Complexity : O(logN)
+// Space Complexity : O(1)
+
+
+// Approach:
+// The minimum element must satisfy one of two conditions: 1) If rotate, A[min] < A[min - 1]; 
+// 2) If not, A[0]. Therefore, we can use binary search: check the middle element,
+// if it is less than previous one, then it is minimum. If not, there are 2 conditions as well: If it is greater than both left and right element, then minimum element should be on its right, otherwise on its left.
+
