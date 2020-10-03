@@ -22,6 +22,7 @@
 // nums1.length == m + n
 // nums2.length == n
 
+// Approach with in-place sorting without any extra space
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int len1 = m - 1;
