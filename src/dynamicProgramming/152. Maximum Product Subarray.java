@@ -42,3 +42,26 @@ class Solution {
 // This value will be picked if the current number is a negative number and the combo chain has been disrupted by a single negative number before (In a sense, this value is like an antidote to an already poisoned combo chain).
 // min_so_far is updated in using the same three numbers except that we are taking minimum among the above three numbers.
 
+
+// Bruteforce solution
+
+class Solution {
+    public int maxProduct(int[] nums) {
+        if (nums.length == 0) return 0;
+
+        int result = nums[0];
+
+        for (int i = 0; i < nums.length; i++) {
+            int accu = 1;
+            for (int j = i; j < nums.length; j++) {
+                accu *= nums[j];
+                result = Math.max(result, accu);
+            }
+        }
+
+        return result;
+    }
+}
+
+// Time: O(N ^ 2)
+// Space: O(1)
