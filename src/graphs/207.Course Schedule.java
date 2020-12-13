@@ -30,8 +30,10 @@
 
 
 // Using topological sort.
+// Idea: Get all courses which has indegree as 0 i.e no dependencies.
+// Try to form a line with rest all courses and gradually reduce the outDegrees. If there are still lines left, it means a cyclic dependency.
 
-class GNode{
+class GNode {
     public Integer inDegree = 0;
     public List<Integer> outNodes = new LinkedList<Integer>();
 }
