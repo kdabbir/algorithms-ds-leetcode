@@ -80,53 +80,58 @@ class Solution {
     }
 }
 
-// Using backtracking.
-
+// Postorder DFS and backtracking. Also, with visited/checked bitmap, we can reduce computations.
 class Solution {
-  public boolean canFinish(int numCourses, int[][] prerequisites) {
-      HashMap<Integer, List<Integer>> courseGraph = new HashMap();
-      for(int[] currCourse: prerequisites){
-         if(courseGraph.containsKey(currCourse[1])){
-             courseGraph.get(currCourse[1]).add(currCourse[0]);
-         } else{
-             List<Integer> neighbors = new LinkedList();
-             neighbors.add(currCourse[0]);
-             courseGraph.put(currCourse[1], neighbors);
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+       HashMap<Integer, List<Integer>> courseGraph = new HashMap();
+       for(int[] currCourse: prerequisites){
+          if(courseGraph.containsKey(currCourse[1])){
+              courseGraph.get(currCourse[1]).add(currCourse[0]);
+          } else{
+              List<Integer> neighbors = new LinkedList();
+              neighbors.add(currCourse[0]);
+              courseGraph.put(currCourse[1], neighbors);
+          }
+       }
+       
+       boolean[] path = new boolean[numCourses];
+       boolean[] visited = new boolean[numCourses];
+       
+       for(int curr = 0; curr < numCourses; curr++) {
+         if(isCyclic(curr, path, visited, courseGraph)) {
+             return false;
          }
-      }
+       }
       
-      boolean[] path = new boolean[numCourses];
-      
-      for(int curr = 0; curr < numCourses; curr++) {
-        if(isCyclic(curr, path, courseGraph)) {
-            return false;
-        }
-      }
+       return true;
+   }
      
-      return true;
-  }
-    
-    public boolean isCyclic(int course, boolean[] path, HashMap<Integer, List<Integer>> graphDict){
-        if(path[course] == true) 
-            // come across a previously visited node, i.e. detect the cycle. Base case for backtracking.
-            return true;
-
-        // no following courses, no loop. Another base case, but for ending case.
-        if(!graphDict.containsKey(course))
-            return false;
-        
-        // before backtracking, mark the node in the path
-        path[course] = true;
-
-        // backtracking
-        boolean ret = false;
-        for(int depCourse: graphDict.get(course)){
-            ret = isCyclic(depCourse, path, graphDict);
-            if(ret) break;
-        }
-        // after backtracking, remove the node from the path
-        path[course] = false;
-        
-        return ret;
-    }
-}
+     public boolean isCyclic(int course, boolean[] path, boolean[] visited, HashMap<Integer, List<Integer>> graphDict) {
+                 
+         if(visited[course])
+             return false;
+         
+         
+         if(path[course] == true) 
+             // come across a previously visited node, i.e. detect the cycle. Base case for backtracking.
+             return true;
+ 
+         // no following courses, no loop. Another base case, but for
+         if(!graphDict.containsKey(course))
+             return false;
+         
+         // before backtracking, mark the node in the path
+         path[course] = true;
+ 
+         // backtracking
+         boolean ret = false;
+         for(int depCourse: graphDict.get(course)){
+             ret = isCyclic(depCourse, path, visited, graphDict);
+             if(ret) break;
+         }
+         // after backtracking, remove the node from the path
+         path[course] = false;
+         visited[course] = true;
+         return ret;
+     }
+ }
