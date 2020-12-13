@@ -1,4 +1,4 @@
-// 207. Course Schedule
+// 207. Course Schedule: https://leetcode.com/problems/course-schedule/
 // Medium
 
 // There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
@@ -108,16 +108,23 @@ class Solution {
     
     public boolean isCyclic(int course, boolean[] path, HashMap<Integer, List<Integer>> graphDict){
         if(path[course] == true) 
+            // come across a previously visited node, i.e. detect the cycle. Base case for backtracking.
             return true;
+
+        // no following courses, no loop. Another base case, but for ending case.
         if(!graphDict.containsKey(course))
             return false;
         
+        // before backtracking, mark the node in the path
         path[course] = true;
+
+        // backtracking
         boolean ret = false;
         for(int depCourse: graphDict.get(course)){
             ret = isCyclic(depCourse, path, graphDict);
             if(ret) break;
         }
+        // after backtracking, remove the node from the path
         path[course] = false;
         
         return ret;
