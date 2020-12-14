@@ -2,7 +2,7 @@
 // Hard:  https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
 // Given an array p[] which represents the chain of matrices such that the ith matrix Ai is of dimension p[i-1] x p[i]. We need to write a function MatrixChainOrder() that should return the minimum number of multiplications needed to multiply the chain. 
 
-// Input: p[] = {40, 20, 30, 10, 30}   
+// Input: p[] = {40, 20, 30, 10, 30}
 // Output: 26000  
 // There are 4 matrices of dimensions 40x20, 20x30, 30x10 and 10x30.
 // Let the input 4 matrices be A, B, C and D.  The minimum number of 
@@ -23,6 +23,24 @@
 
 // Dynamic programming using Memoization
 // Intuition: https://www.youtube.com/watch?v=_WncuhSJZyA&t=1079s
+
+// For example Input: p[] = {40, 20, 30, 10, 30}
+// There are 4 matrices of dimensions 40x20, 20x30, 30x10 and 10x30.
+// Let the input 4 matrices be A, B, C and D.  The minimum number of 
+// multiplications are obtained by putting parenthesis in following way
+// (A(BC))D --> 20*30*10 + 40*20*10 + 40*10*30
+// Intuition:
+// Lets take 4 matrices as below:
+// m1       m2      m3    m4
+// 40 * 20 20 * 30  30x10 10x30
+// One multiplication example:
+// m1 ((m2 * m3) m4) etc.
+// 40 * ((20*10) 10 * 30)
+// 40 * 20 * 30
+// We have to take min of such all examples, hence the below formula:
+// start = 1, end = n-1, idx (start -> end)
+// cost[start][end] = cost[start][idx] + cost[idx + 1][end] + arr[start - 1] * arr[start] * arr[emd]
+//                    first multiplication eg: m1 + 2nd mul: ((m2 * m3) m4) + cost of multiplying the results: 40 * 
 
 
 public static int matrixChainMemoised(int[] arr, int start, int end) {
