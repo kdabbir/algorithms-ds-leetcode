@@ -32,6 +32,7 @@
 // Using topological sort.
 // Idea: Get all courses which has indegree as 0 i.e no dependencies.
 // Try to form a line with rest all courses and gradually reduce the outDegrees. If there are still lines left, it means a cyclic dependency.
+// If all removed nodes equals the number of courses, it means course dependencies will work.
 
 class GNode {
     public Integer inDegree = 0;
