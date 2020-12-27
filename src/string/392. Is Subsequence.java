@@ -32,6 +32,9 @@ class Solution {
         int s1Bound = s.length(), s2Bound = t.length();
         int s1Pointer = 0, s2Pointer = 0;
         
+        // Have 2 pointers, expand both pointers if character is the same. Else, move the bigger string. 
+        // At the end if smaller string pointer is at last element of the array, we have confirmed the subsequence.
+
         while(s1Pointer < s1Bound && s2Pointer < s2Bound){
             if(t.charAt(s2Pointer) == s.charAt(s1Pointer)) {
                 s1Pointer++;
@@ -47,3 +50,5 @@ class Solution {
 
 // Time: O(N)
 // Space: O(1)
+
+// Answer to follow-up
