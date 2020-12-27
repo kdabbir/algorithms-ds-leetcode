@@ -8,9 +8,6 @@
 // Follow up:
 // If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?
 
-// Credits:
-// Special thanks to @pbrother for adding this problem and creating all test cases.
-
 // Example 1:
 
 // Input: s = "abc", t = "ahbgdc"
@@ -51,4 +48,55 @@ class Solution {
 // Time: O(N)
 // Space: O(1)
 
-// Answer to follow-up
+
+// Follow up:
+// If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?
+
+// Approach to follow-up
+// pre-compute target string since it is same across all source strings.
+// Store indexes of a char in a list against the character in a hashmap.
+// Check if all source string characters mao against hashmap making sure sequence is one after another.
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        
+        // precomputation, build the hashmap out of the target string.
+        
+        HashMap<Character, List<Integer>> letterIndicesTable = new HashMap<>();
+        
+        for(int i = 0; i < t.length(); i++) {
+            if(!letterIndicesTable.containsKey(t.charAt(i))){
+                ArrayList<Integer> indices= new ArrayList<>();
+                indices.add(i);
+                letterIndicesTable.put(t.charAt(i), indices);
+            } else{
+                letterIndicesTable.get(t.charAt(i)).add(i);
+            }
+        }
+        int currentMatchIndex = -1;
+        
+        for(char currentChar: s.toCharArray()){
+            if(!letterIndicesTable.containsKey(currentChar)) {
+                return false; // no match, early exist
+            }
+            
+            boolean isMatched = false;
+            
+            // greedy match with linear search
+
+            for(int index: letterIndicesTable.get(currentChar)) {
+                if(currentMatchIndex < index) {
+                    currentMatchIndex = index;
+                    isMatched = true;
+                    break;
+                }
+            }
+            
+            if(!isMatched)
+                return false;            
+        }
+        
+        // matched all characters in the source string
+        return true;
+    }
+}
