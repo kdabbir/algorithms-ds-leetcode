@@ -60,5 +60,22 @@ class Solution {
     }
 }
 
-// Time complexity: O(N)
-// Space complexity: O(N)
+// Time complexity: O(H)
+// Space complexity: O(1)
+
+// Alternate way of implementation
+
+class Solution {
+    public int closestValue(TreeNode root, double target) {
+      int val, closest = root.val;
+      while (root != null) {
+        val = root.val;
+        closest = Math.abs(val - target) < Math.abs(closest - target) ? val : closest;
+        root =  target < root.val ? root.left : root.right;
+      }
+      return closest;
+    }
+  }
+
+// Time complexity: O(H)
+// Space complexity: O(1)
