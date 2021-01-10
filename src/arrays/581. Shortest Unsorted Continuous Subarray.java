@@ -26,6 +26,9 @@
 // -105 <= nums[i] <= 105
 
 
+
+
+// Optimized approach with O(1) space and O(N) time
 // Find start and end where condition of sorted arrays is violated.
 // Find min and max between this start,end, expand start, end
 // end - start + 1 will give length of unsorted array
