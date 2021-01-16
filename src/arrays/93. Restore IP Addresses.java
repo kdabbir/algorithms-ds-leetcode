@@ -46,20 +46,18 @@ class Solution {
   public void dfs(List<String> ipAddresses, String path, String str, int pos) {
       if(pos == 4 || str.length() == 0){
           if(pos == 4 && str.length() == 0) {
-              ipAddresses.add(path.substring(1)); //Since initial path will have "" + "." and we need to escape the initial dot
+              ipAddresses.add(path); 
           }
           return;
       }
       
-      for(int idx = 1; idx <=(str.charAt(0) == '0' ? 1: 3) && idx <= str.length(); idx++){ // Here i is going from 1->3 if i doesn't start with 0. Else, 0 -> 1 to handle leading zeroes.
+      for(int idx = 1; idx <=(str.charAt(0) == '0' ? 1: 3) && idx <= str.length(); idx++){
           String currPart = str.substring(0, idx); // here we take from 0 -> idx
           if(Integer.parseInt(currPart) <= 255) { 
-              dfs(ipAddresses, path + "." + currPart, str.substring(idx), pos + 1); // here we take rest of the string i.e idx -> Str.length
+              dfs(ipAddresses, path!="" ? path + "." + currPart: currPart, str.substring(idx), pos + 1); // here we take rest of the string i.e idx -> Str.length. //Since initial path will have "" + "." and we need to escape the initial dot
           }
       }
   }
-  
-  
 }
 
 // Naive solution.
