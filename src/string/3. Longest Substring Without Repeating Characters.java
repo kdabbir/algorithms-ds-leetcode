@@ -78,4 +78,32 @@ class Solution {
 // Space: O(min(N,RES))
 
 
+// To get longest string
+
+import java.util.*;
+
+class Program {
+  public static String longestSubstringWithoutDuplication(String str) {
+    String longestSubString;
+		int longestLen = 0;
+		int[] longestIdx = new int[2];
+		Map<Character, Integer> seenMap = new HashMap<Character, Integer>();
+		for(int start = 0, end = 0; end < str.length(); end ++) {
+			char curr = str.charAt(end);
+			if(seenMap.containsKey(curr)) {
+				start = Math.max(start, seenMap.get(curr));
+			}
+			if(longestLen < end - start + 1) {
+				longestLen = end - start + 1;
+				longestIdx[0] = start;
+				longestIdx[1] = end;
+			}
+			seenMap.put(curr, end + 1);
+		}
+		
+    return str.substring(longestIdx[0], longestIdx[1] + 1);
+  }
+}
+
+
 
