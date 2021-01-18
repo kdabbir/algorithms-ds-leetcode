@@ -29,11 +29,11 @@ class Solution {
         while(start <= end) {
             int mid = start + (end - start)/2;
             if(nums[mid] == target) return mid;
-            else if(nums[mid] >= nums[start]) {
-                if(target >= nums[start] && target < nums[mid]) end = mid-1;
+            else if(nums[mid] >= nums[start]) { // Is left side sorted? i.e Start <= Mid.
+                if(target >= nums[start] && target < nums[mid]) end = mid-1; // If element exists between start and mid, check in left sorted side.
                 else start = mid+1; 
-            } else {
-                if(target <= nums[end] && target > nums[mid]) start = mid + 1;
+            } else { // We are in unsorted part of array, we check if right side is sorted.
+                if(target > nums[mid] && target <= nums[end]) start = mid + 1; // Right side is sorted. Hence,move start pointer to right side.
                 else end = mid-1;
             }
         }
