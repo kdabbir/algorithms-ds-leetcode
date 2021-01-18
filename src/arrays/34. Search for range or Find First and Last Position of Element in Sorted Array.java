@@ -45,17 +45,17 @@ class Solution {
 				start = mid + 1;
 			} else {
 				if(goLeft) {
-					if(mid == 0 || array[mid-1] != target){
+					if(mid == 0 || array[mid-1] != target){ // If we land at an index where it doesn't match, its the final index.
 						indexRange[0] = mid;
 						return;
-					} else {
+					} else {  // We are going left, hence, reducing end boundary to left of mid.
 						end = mid - 1;
 					}
 				} else {
 					if(mid == array.length - 1 || array[mid + 1] != target) {
 						indexRange[1] = mid;
 						return;
-					} else {
+					} else { // We are going right, hence, reducing start boundary to right of mid.
 						start = mid + 1;
 					}
 				}
@@ -63,4 +63,45 @@ class Solution {
 		}
 		return;
 	}
+}
+
+// Naive solution. Find any target index and expand left, right pointers
+class Solution2 {
+
+public int[] searchRange(int[] nums, int target) {
+  int[] indexRange = new int[] {-1, -1};
+  int targetIdx = binarySearch(nums, target);
+  if(targetIdx == -1)
+	  return indexRange;
+  else {
+	  int leftBound = targetIdx, rightBound = targetIdx;
+	  while(rightBound < nums.length && nums[rightBound] == target) {
+		  rightBound++;
+	  }
+	  while(leftBound >= 0 && nums[leftBound] == target){
+		  leftBound--;
+	  }
+	  System.out.println(leftBound);
+	  System.out.println(rightBound);
+		indexRange[0] = leftBound + 1;
+		  indexRange[1] = rightBound - 1;
+  }
+  
+return indexRange;
+}
+
+public static int binarySearch(int[] array, int target) {
+  int start = 0, end = array.length - 1;
+  while(start <= end) {
+	  int mid = start + (end - start)/2;
+	  if(array[mid] == target)
+		  return mid;
+	  else if(array[mid] > target) {
+		  end = mid - 1;
+	  } else {
+		  start = mid + 1;
+	  }
+  }
+  return -1;
+}
 }
