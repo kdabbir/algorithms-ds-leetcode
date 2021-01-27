@@ -21,6 +21,11 @@
 // -10 <= nums[i] <= 10
 // All the numbers of nums are unique.
 
+// Cascading
+// Intuition(Check doc for visual)
+
+// Let's start from empty subset in output list. At each step one takes new integer into consideration and generates new subsets from the existing ones.
+
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> outputSet = new ArrayList<List<Integer>>();
