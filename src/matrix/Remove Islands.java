@@ -47,8 +47,10 @@ import java.util.*;
 
 class Program {
 
-  private final int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-  public int[][] removeIslands(int[][] matrix) {
+    private final int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    public int[][] removeIslands(int[][] matrix) {
+
+        // Here we are marking border connected ones to 2.
 		for(int row = 0; row < matrix.length; row++) {
 			for(int col = 0; col < matrix[row].length; col++) {
 				boolean isBorderRow = row == 0 || row == matrix.length - 1;
@@ -68,7 +70,10 @@ class Program {
 				markConnectedOnes(matrix, row, col);
 			}
 		}
-		
+        
+        
+        // Here we are marking all except border connected to 0 and border connected to 1.
+        
 		for(int row = 0; row < matrix.length; row++) {
 			for(int col = 0; col < matrix[row].length; col++) {
 				int color = matrix[row][col];
