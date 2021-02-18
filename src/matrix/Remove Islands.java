@@ -42,12 +42,65 @@
 // Alternate way of forming question:
 
 // Given a binary grid where 0 represents water and 1 represents land. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. Delete all islands except their borders. A border is land adjacent to water. You may assume all four edges of the grid are surrounded by water.
-
-// Approach 1: Changing border connected 1s to 2s 
-
 import java.util.*;
+// Approach 1: using DFS Changing border connected 1s to 2s 
 
-class Program1 {
+class Program {
+
+  private final int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+  public int[][] removeIslands(int[][] matrix) {
+		for(int row = 0; row < matrix.length; row++) {
+			for(int col = 0; col < matrix[row].length; col++) {
+				boolean isBorderRow = row == 0 || row == matrix.length - 1;
+				boolean isBorderCol = col == 0 || col == matrix[row].length - 1;
+				boolean isBorder = isBorderRow || isBorderCol;
+				
+				// We dont care about non-border nodes
+				if(!isBorder) {
+					continue;
+				}
+			
+				// We dont care if val is 0
+				if(matrix[row][col] != 1) {
+					continue;
+                }	
+                			
+				markConnectedOnes(matrix, row, col);
+			}
+		}
+		
+		for(int row = 0; row < matrix.length; row++) {
+			for(int col = 0; col < matrix[row].length; col++) {
+				int color = matrix[row][col];
+				if(color == 1){
+					matrix[row][col] = 0;
+				} else if(color == 2){
+					matrix[row][col] = 1;
+				}
+			}
+		}
+		
+    return matrix;
+  }
+	
+	public void markConnectedOnes(int[][] matrix, int row, int col) {
+		if(row < 0 || col < 0 || row >= matrix.length || col >= matrix[row].length || matrix[row][col] != 1) {
+			return;
+		}
+		matrix[row][col] = 2;
+		
+		for(int[] dir: directions) {
+			markConnectedOnes(matrix, row + dir[0], col + dir[1]);
+		}
+		
+	}
+	
+}
+
+// Approach 1: using BFS Changing border connected 1s to 2s 
+
+
+class Program2 {
 
   public int[][] removeIslands(int[][] matrix) {
 		for(int row = 0; row < matrix.length; row++) {
@@ -119,7 +172,7 @@ class Program1 {
 
 // Approach 2 : marking border connected ones as true and using that to change inner ones as 0s
 
-class Program {
+class Program3 {
 
   public int[][] removeIslands(int[][] matrix) {
     boolean[][] connectedToBorderNodes = new boolean[matrix.length][matrix[0].length];
