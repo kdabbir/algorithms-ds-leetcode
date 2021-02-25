@@ -48,6 +48,8 @@ class Solution {
 // Check image in leetcode problems explanation.
 // Output stack would be [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
 
+// Time complexity: N * 2 ^ N
+// Space complexity: N * 2 ^ N
 
 // Approach 2: Using logical approach.
 // Cascading
