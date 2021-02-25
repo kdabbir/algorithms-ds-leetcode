@@ -50,3 +50,6 @@ class Solution {
 
 // Stack trace output would be 
 // [[1,2,3], [1,3,2], [2,3,1], [2,1,3], [3,1,2], [3,2,1]] for the above example.
+
+// Time complexity:  O(n x n!)
+// Space complexity: O(n!)
