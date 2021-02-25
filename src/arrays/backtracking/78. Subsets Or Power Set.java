@@ -45,7 +45,7 @@ class Solution {
     }
 }
 // Explanation: https://leetcode.com/problems/subsets/discuss/27281/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
-// Check image in ds docs
+// Check image in leetcode problems explanation.
 // Output stack would be [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
 
 
