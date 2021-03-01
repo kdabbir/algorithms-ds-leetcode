@@ -24,7 +24,43 @@
 // -10 <= nums[i] <= 10
 // All the integers of nums are unique.
 
-// Using backtracking, trying to generate all possible permutations
+// Approach 1: Using boolean[] instead of List.contains()
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> output = new ArrayList<List<Integer>>();
+        backTrack(new ArrayList<>(), new boolean[nums.length], nums, output);
+        return output;
+    }
+    
+    public void backTrack(List<Integer> currPath, boolean[] used, int[] nums, List<List<Integer>> output) {
+        if(currPath.size() == nums.length) {
+            // make a deep copy since otherwise we'd be append the same list over and over
+            output.add(new ArrayList<>(currPath));
+        } else {
+            for(int idx = 0; idx < nums.length; idx++) {
+                // skip used letters
+                if(used[idx]) continue;
+                // add letter to permutation, mark letter as used
+                currPath.add(nums[idx]);
+                used[idx] = true;
+                backTrack(currPath, used, nums, output);
+                // remove letter from permutation, mark letter as unused
+                currPath.remove(currPath.size() - 1);
+                used[idx] = false;
+            }
+        }
+    }
+}
+
+
+// Stack trace output would be 
+// [[1,2,3], [1,3,2], [2,3,1], [2,1,3], [3,1,2], [3,2,1]] for the above example.
+
+// Time complexity:  O(n x n!)
+// Space complexity: O(n!)
+
+
+// App2 :Using backtracking, trying to generate all possible permutations
 
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
@@ -53,3 +89,50 @@ class Solution {
 
 // Time complexity:  O(n x n!)
 // Space complexity: O(n!)
+
+public class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+         List<List<Integer>> permutations = new ArrayList<>();
+         if (nums.length == 0) {
+             return permutations;
+         }
+ 
+         collectPermutations(nums, 0, new ArrayList<>(), permutations);
+         return permutations;
+     }
+ 
+     private void collectPermutations(int[] nums, int start, List<Integer> permutation,
+              List<List<Integer>>  permutations) {
+         
+         if (permutation.size() == nums.length) {
+             permutations.add(permutation);
+             return;
+         }
+ 
+         for (int i = 0; i <= permutation.size(); i++) {
+             List<Integer> newPermutation = new ArrayList<>(permutation);
+             newPermutation.add(i, nums[start]);
+             collectPermutations(nums, start + 1, newPermutation, permutations);
+         }
+     }
+ }
+
+
+ // Understanding backtracking
+//  Code flow
+
+// nums = 1,2,3
+
+// start = 0, permutation = []
+// i = 0, newPermutation = [1]
+// 	start = 1, permutation = [1]
+// 	i = 0, newPermutation = [2, 1]
+// 		start = 2, permutation = [2, 1]
+// 		i = 0, newPermutation = [3, 2, 1]
+// 		i = 1, newPermutation = [2, 3, 1]
+// 		i = 2, newPermutation = [2, 1, 3]
+// 	i = 1, newPermutation = [1, 2]
+// 		start = 2, permutation = [1, 2]
+// 		i = 0, newPermutation = [3, 1, 2]
+// 		i = 1, newPermutation = [1, 3, 2]
+// 		i = 2, newPermutation = [1, 2, 3]
