@@ -34,8 +34,8 @@ class Solution {
             output.add(new ArrayList<>(currPath));
         } else {
             for(int idx = 0; idx < nums.length; idx++) {
-                if(used[idx] || idx > 0 && nums[idx] == nums[idx - 1] && !used[idx - 1]) continue; // First check is to see if already used in curr Permutation, 2nd check is for finding if duplicate and if yes, then previous index value should have been used then only process this. If previous index is not used then ignore this index, since, we need to group duplicates together/consider them as an unique set. EG: [1,1,2] & [1,1,2] can be both formed otherwise.
-                
+                if(used[idx] || idx > 0 && nums[idx] == nums[idx - 1] && !used[idx - 1]) continue; // First check is to see if already used in curr Permutation, 2nd check is for finding if duplicate and if yes, then previous index value should have been used then only process this. If previous index is not used then ignore this index, since, we need to group duplicates together/consider them as an unique set. EG: [1,1,2] & [1,1,2] can be both formed otherwise. when a number has the same value with its previous, we can use this number only if his previous is used
+
                 currPath.add(nums[idx]);
                 used[idx] = true;
                 backTrack(currPath, used, nums, output);
