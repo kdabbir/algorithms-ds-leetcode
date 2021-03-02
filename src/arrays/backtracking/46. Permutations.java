@@ -77,11 +77,37 @@ class Solution {
                 if(tempList.contains(nums[idx])) continue;
                 tempList.add(nums[idx]);
                 backTrack(nums, tempList, output);
-                tempList.remove(tempList.size() - 1);
+                tempList.remove(tempList.size() - 1); // Reason explained below.
             }
         }
         
     }   
+}
+
+// Using new list instead of re-using the existing list and backtracking.
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+       List<List<Integer>> output = new ArrayList<List<Integer>>();
+       backTrack(nums, new ArrayList<>(), output);
+       return output;
+   }
+   
+   public void backTrack(int[] nums, ArrayList<Integer> tempList, List<List<Integer>> output) {
+       if(tempList.size() == nums.length){
+           output.add(new ArrayList<>(tempList));
+       } else {
+           for(int idx = 0; idx < nums.length; idx++) {
+               if(tempList.contains(nums[idx])) continue;
+                ArrayList<Integer> current = new ArrayList<>(tempList); //here we create a new List instance.we reuse the tempList for all the backtrack function calls. We reuse the tempList for performance.
+                // We can delete the "remove" line and create a new List instance every time. The result is the same.
+
+               current.add(nums[idx]);
+               backTrack(nums, current, output);
+           }
+       }
+       
+   }   
 }
 
 // Stack trace output would be 
