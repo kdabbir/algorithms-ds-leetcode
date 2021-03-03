@@ -59,3 +59,48 @@ class Solution {
 		return 1 + Math.max(leftCount, rightCount);
 	}
 }
+
+// Time complexity : O(nlogn) the height h of a balanced tree is bounded by O(logn)
+// Space complexity: O(n)
+// Other versionn
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+	    // corner case
+        if(root == null) return true;
+        
+        int[] res = getHeight(root);
+        return res[1] == 1;
+    }
+    
+    // return [height, balanced]
+    public int[] getHeight(TreeNode root){
+        // base case
+        if(root == null) return new int[]{0, 1};
+        
+        int[] cur = new int[2];
+        
+        int[] left = getHeight(root.left);
+        if(left[1] == -1){
+            cur[1] = -1; // unbalanced, do not care about height anymore
+            return cur;
+        }
+        
+        int[] right = getHeight(root.right);
+        if(right[1] == -1){
+            cur[1] = -1; // unbalanced, do not care about height anymore
+            return cur;
+        }
+        
+        if(Math.abs(left[0] - right[0]) > 1){
+            cur[1] = -1; // unbalanced, do not care about height anymore
+            return cur;
+        }
+        
+		// set [height, balanced]
+        cur[0] = Math.max(left[0], right[0]) + 1; // set height
+        cur[1] = 1; // set balanced
+        return cur;
+    }
+    
+}
