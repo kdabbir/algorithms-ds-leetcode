@@ -7,19 +7,22 @@
 
 // How many possible unique paths are there?
 
-
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[][] dpMemo = new int[m][n];
-        for(int[] arr: dpMemo) {
-            Arrays.fill(arr, 1);
-        }
-        for(int row = 1; row < m; row++) {
-            for(int col = 1; col < n; col ++) {
-                dpMemo[row][col] = dpMemo[row-1][col] + dpMemo[row][col-1];
-            }
-        }
-        return dpMemo[m-1][n-1];
+        int[][] numberOfWays = new int[m + 1][n + 1];
+
+		for(int row = 1; row < numberOfWays.length; row++) {
+			for(int col = 1; col < numberOfWays[row].length;col++) {
+				if(row == 1 || col == 1) {
+					numberOfWays[row][col] = 1;
+				} else{ 
+					int waysFromLeft =  numberOfWays[row][col - 1];
+					int waysFromTop = numberOfWays[row - 1][col];
+					numberOfWays[row][col] = waysFromLeft + waysFromTop;
+				}
+			}
+		}
+		return numberOfWays[m][n];
      }
 }
 
