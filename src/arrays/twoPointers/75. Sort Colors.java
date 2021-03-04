@@ -41,7 +41,7 @@ class Solution {
     public void sortColors(int[] nums) {
         int start = 0, end = nums.length - 1;
         int pointer = 0;
-        while (pointer <= end) {
+        while (pointer <= end) { //Important here to use end instead of nums.length - 1
             if(nums[pointer] == 2) {
                 swap(nums, pointer, end);
                 end--;
@@ -54,7 +54,7 @@ class Solution {
             }
         }
     }
-    
+
     public void swap(int[] nums, int source, int target) {
         int temp = nums[source];
         nums[source] = nums[target];
