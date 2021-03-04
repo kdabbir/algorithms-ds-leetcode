@@ -67,3 +67,22 @@ class Solution {
 // G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0) 
 // In terms of calculation, we need to start with the lower number, since the value of G(n) depends on the values of G(0) … G(n-1).
 
+// Another approach
+
+
+
+class Program {
+    public static int numberOfBinaryTreeTopologies(int n) {
+          if(n <= 1) return 1;
+      int[] topologies = new int[n + 1];
+          topologies[0] = 1;
+          for(int topologyIdx = 1; topologyIdx <= n; topologyIdx++) {
+              for(int leftIdx = 0; leftIdx < topologyIdx; leftIdx++) {
+                  topologies[topologyIdx] += topologies[leftIdx] * topologies[topologyIdx - 1 - leftIdx];
+              }
+          }
+          
+      return topologies[n];
+    }
+  }
+  
