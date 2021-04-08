@@ -7,7 +7,7 @@
 
 // The solution set must not contain duplicate subsets. Return the solution in any order.
 
- 
+
 
 // Example 1:
 
@@ -17,7 +17,7 @@
 
 // Input: nums = [0]
 // Output: [[],[0]]
- 
+
 
 // Constraints:
 
@@ -32,7 +32,7 @@ class Solution {
         backtrackBuild(nums, outputList, new ArrayList<Integer>(), 0);
         return outputList;
     }
-    
+
     public void backtrackBuild(int[] nums, List<List<Integer>> output, List<Integer> tempList, int start) {
         output.add(new ArrayList<>(tempList));
         for(int idx = start; idx < nums.length; idx++) {
@@ -42,3 +42,5 @@ class Solution {
             tempList.remove(tempList.size() - 1);
         }
     }}
+    // Time complexity:  O(n x n!)
+// Space complexity: O(n!)
