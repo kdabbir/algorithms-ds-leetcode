@@ -16,7 +16,7 @@
 
 // Input: nums = [1]
 // Output: [[1]]
- 
+
 
 // Constraints:
 
@@ -31,7 +31,7 @@ class Solution {
         backTrack(new ArrayList<>(), new boolean[nums.length], nums, output);
         return output;
     }
-    
+
     public void backTrack(List<Integer> currPath, boolean[] used, int[] nums, List<List<Integer>> output) {
         if(currPath.size() == nums.length) {
             // make a deep copy since otherwise we'd be append the same list over and over
@@ -53,7 +53,7 @@ class Solution {
 }
 
 
-// Stack trace output would be 
+// Stack trace output would be
 // [[1,2,3], [1,3,2], [2,3,1], [2,1,3], [3,1,2], [3,2,1]] for the above example.
 
 // Time complexity:  O(n x n!)
@@ -68,7 +68,7 @@ class Solution {
         backTrack(nums, new ArrayList<>(), output);
         return output;
     }
-    
+
     public void backTrack(int[] nums, ArrayList<Integer> tempList, List<List<Integer>> output) {
         if(tempList.size() == nums.length){
             output.add(new ArrayList<>(tempList));
@@ -80,9 +80,44 @@ class Solution {
                 tempList.remove(tempList.size() - 1); // Reason explained below.
             }
         }
-        
-    }   
+
+    }
 }
+
+// Using swap to generate combinations.
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        dfs(nums, res, 0);
+        return res;
+    }
+
+    void dfs(int[] nums, List<List<Integer>> res, int index) {
+        if (index == nums.length) {
+            List<Integer> list = new LinkedList<Integer>();
+            for (int i : nums) {
+                list.add(i);
+            }
+            res.add(list);
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            swap(nums, index, i);
+            dfs(nums, res, index+1);
+            swap(nums, index, i);
+        }
+    }
+
+    void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+
+
+
 
 // Using new list instead of re-using the existing list and backtracking.
 
@@ -92,7 +127,7 @@ class Solution {
        backTrack(nums, new ArrayList<>(), output);
        return output;
    }
-   
+
    public void backTrack(int[] nums, ArrayList<Integer> tempList, List<List<Integer>> output) {
        if(tempList.size() == nums.length){
            output.add(new ArrayList<>(tempList));
@@ -106,11 +141,11 @@ class Solution {
                backTrack(nums, current, output);
            }
        }
-       
-   }   
+
+   }
 }
 
-// Stack trace output would be 
+// Stack trace output would be
 // [[1,2,3], [1,3,2], [2,3,1], [2,1,3], [3,1,2], [3,2,1]] for the above example.
 
 // Time complexity:  O(n x n!)
@@ -122,19 +157,19 @@ public class Solution {
          if (nums.length == 0) {
              return permutations;
          }
- 
+
          collectPermutations(nums, 0, new ArrayList<>(), permutations);
          return permutations;
      }
- 
+
      private void collectPermutations(int[] nums, int start, List<Integer> permutation,
               List<List<Integer>>  permutations) {
-         
+
          if (permutation.size() == nums.length) {
              permutations.add(permutation);
              return;
          }
- 
+
          for (int i = 0; i <= permutation.size(); i++) {
              List<Integer> newPermutation = new ArrayList<>(permutation);
              newPermutation.add(i, nums[start]);
