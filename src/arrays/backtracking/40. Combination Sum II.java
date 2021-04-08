@@ -7,12 +7,12 @@
 
 // Note: The solution set must not contain duplicate combinations.
 
- 
+
 
 // Example 1:
 
 // Input: candidates = [10,1,2,7,6,1,5], target = 8
-// Output: 
+// Output:
 // [
 // [1,1,6],
 // [1,2,5],
@@ -22,12 +22,12 @@
 // Example 2:
 
 // Input: candidates = [2,5,2,1,2], target = 5
-// Output: 
+// Output:
 // [
 // [1,2,2],
 // [5]
 // ]
- 
+
 
 // Constraints:
 
@@ -42,7 +42,7 @@ class Solution {
         backTrack(new ArrayList<>(), output, 0, target,  candidates);
         return output;
     }
-    
+
     public void backTrack(ArrayList<Integer> curr, List<List<Integer>> output, int processIdx, int currentRem, int[] candidates) {
         if(currentRem < 0) return;
         else if(currentRem == 0) {
@@ -57,3 +57,6 @@ class Solution {
         }
     }
 }
+
+// Time complexity:  O(n x n!)
+// Space complexity: O(n!)
