@@ -50,6 +50,9 @@ class Solution {
         } else {
             for(int idx = processIdx; idx < candidates.length; idx++) {
                 if(idx > processIdx && candidates[idx] == candidates[idx - 1]) continue; // Skip duplicates
+                // optimization: early stopping
+                if (target - nums[currIdx] < 0)
+                    break;
                 curr.add(candidates[idx]);
                 backTrack(curr, output, idx + 1, currentRem - candidates[idx], candidates);
                 curr.remove(curr.size() - 1);
