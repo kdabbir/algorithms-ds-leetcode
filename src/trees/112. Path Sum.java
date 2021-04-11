@@ -1,4 +1,5 @@
 // 112. Path Sum: https://leetcode.com/problems/path-sum/
+// Easy
 // Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
 
 // Note: A leaf is a node with no children.
@@ -35,18 +36,18 @@ class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
         return pathSumDFS(root, sum, 0);
     }
-    
+
     public boolean pathSumDFS(TreeNode curr, int target, int runSum) {
         if(curr == null) {
             return false;
         }
-        
+
         runSum += curr.val;
 
         if(curr.left == null && curr.right == null) {
             return target == runSum;
-        } 
-        
+        }
+
         boolean left = pathSumDFS(curr.left, target, runSum);
         boolean right = pathSumDFS(curr.right, target, runSum);
 
