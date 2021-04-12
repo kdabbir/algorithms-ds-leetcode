@@ -15,7 +15,7 @@ class Solution {
             while(greaterIdx >= 0 && nums[pivotIdx] >= nums[greaterIdx]){
                 greaterIdx--;
             }
-        swap(nums, greaterIdx,  pivotIdx);
+            swap(nums, greaterIdx,  pivotIdx);
         }
         reverse(nums, pivotIdx + 1);
 
