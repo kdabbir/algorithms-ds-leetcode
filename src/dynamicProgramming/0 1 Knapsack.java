@@ -33,7 +33,7 @@
             for (int row = 0; row < dpMemo.length; row++) {
                 for (int col = 0; col < dpMemo[row].length; col++) {
                     if(row == 0 || col == 0) dpMemo[row][col] = 0;
-
+                    // gotcha: Taking from arrays then reduce 1, variables don't need to get reduced. (wt[row-1] vs col)
                     else if(wt[row - 1] <= col) {
                         // Here, first check is taking current value(val[row -1]) and remaining value from dp using dp[row-1][col - wt[row -1]]
                         // Second check is if we don't pick this value and take from computed dp
