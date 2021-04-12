@@ -1,4 +1,4 @@
-// 0 - 1 Knapsack Problem 
+// 0 - 1 Knapsack Problem : https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
 // Hard
 
 // You are given weights and values of N items, put these items in a knapsack of capacity W to get the maximum total value in the knapsack. Note that we have only one quantity of each item.
@@ -22,29 +22,33 @@
 // Output: 0
 
 // Explanation: https://www.youtube.com/watch?v=8LusJS5-AGo&t=1s
-
-    class Knapsack 
-    { 
-        // Returns the maximum value that can be put in a knapsack of capacity W 
-        static int knapSack(int W, int wt[], int val[], int n) 
-        { 
+// Refer to docs screenshot
+    class Knapsack
+    {
+        // Returns the maximum value that can be put in a knapsack of capacity W
+        static int knapSack(int W, int wt[], int val[], int n)
+        {
             int[][] dpMemo = new int[n + 1][W + 1];
-            
+
             for (int row = 0; row < dpMemo.length; row++) {
                 for (int col = 0; col < dpMemo[row].length; col++) {
                     if(row == 0 || col == 0) dpMemo[row][col] = 0;
-                    
+
                     else if(wt[row - 1] <= col) {
+                        // Here, first check is taking current value(val[row -1]) and remaining value from dp using dp[row-1][col - wt[row -1]]
+                        // Second check is if we don't pick this value and take from computed dp
+
                         dpMemo[row][col] = Math.max(val[row - 1] + dpMemo[row - 1][col - wt[row-1]],
                                                     dpMemo[row - 1][col] );
                     } else {
+                        // If current weight array value i.e wt[row - 1] cannot be picked for current capacity weight, pick computed value/already present value.
+
                         dpMemo[row][col] = dpMemo[row - 1][col];
                     }
                 }
             }
             return dpMemo[wt.length][W];
-        } 
+        }
     }
-    
-    
-    
+
+
