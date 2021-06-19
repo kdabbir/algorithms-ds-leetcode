@@ -57,6 +57,10 @@
 // 0 <= tree[i] < tree.length
 
 // Sliding window using hashmap.
+// Solve with sliding window,
+// and maintain a hashmap counter,
+// which count the number of element between the two pointers.
+
 class Solution {
     public int totalFruit(int[] tree) {
         Map<Integer, Integer> countMap = new HashMap<>();
