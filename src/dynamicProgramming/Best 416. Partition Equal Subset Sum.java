@@ -20,3 +20,34 @@
 // 1 <= nums.length <= 200
 // 1 <= nums[i] <= 100
 
+// Bottom up dynamic programming. Refer doc for explanation.
+
+
+// Recursion with Memoization
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int totalSum = 0;
+        for(int num: nums) {
+            totalSum += num;
+        }
+        if(totalSum %2!= 0) return false;
+
+        return partitionDFSHelper(totalSum/2, nums.length - 1, new Boolean[nums.length][totalSum/2 + 1], nums);
+    }
+
+    public boolean partitionDFSHelper(int currSum, int currIdx, Boolean[][] memo, int[] nums) {
+        if(currSum == 0) return true; // We are able to find halfSum with a combination, hence returning true.
+        if(currSum < 0 || currIdx == 0) return false; // If we reach first index.
+        if(memo[currIdx][currSum] != null) return memo[currIdx][currSum];
+
+        boolean result = partitionDFSHelper(currSum - nums[currIdx], currIdx - 1, memo, nums) || partitionDFSHelper(currSum , currIdx - 1, memo, nums);  // Simulating taking currIdx sum into consideration or not.
+         // store the result in memo
+        memo[currIdx][currSum] = result;
+
+        return result;
+    }
+}
+
+// Time: O(M * N) M- subsetSum and N- number of elements
+// Space: O(M * N)
