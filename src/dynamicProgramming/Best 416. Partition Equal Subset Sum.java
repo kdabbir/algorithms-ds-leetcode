@@ -20,8 +20,33 @@
 // 1 <= nums.length <= 200
 // 1 <= nums[i] <= 100
 
-// Bottom up dynamic programming. Refer doc for explanation.
+// Bottom up dynamic programming. Refer doc for explanation with nice explanation for converting recursion with memo code to dp.
 
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int totalSum = 0;
+        for(int num: nums) {
+            totalSum += num;
+        }
+        if(totalSum %2!= 0) return false;
+
+        int subsetSum = totalSum/2;
+        boolean[][] canPartitionDp = new boolean[nums.length + 1][subsetSum + 1];
+        canPartitionDp[0][0] = true;
+
+        for(int idx = 1; idx <= nums.length; idx++) {
+            int currVal = nums[idx - 1];
+            for(int currSum = 0; currSum <= subsetSum; currSum++) {
+                if(currSum < currVal) {
+                    canPartitionDp[idx][currSum] = canPartitionDp[idx - 1][currSum];
+                } else {
+                    canPartitionDp[idx][currSum] = canPartitionDp[idx - 1][currSum] || canPartitionDp[idx - 1][currSum - currVal];
+                }
+            }
+        }
+        return canPartitionDp[nums.length][subsetSum];
+    }
+}
 
 // Recursion with Memoization
 
@@ -51,3 +76,5 @@ class Solution {
 
 // Time: O(M * N) M- subsetSum and N- number of elements
 // Space: O(M * N)
+
+
