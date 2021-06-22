@@ -81,3 +81,56 @@ class Solution {
 
 // Time: O(N ^ 2)
 // Space: O(N)
+
+
+// Iterative solution.
+
+public class SubTreeObj {
+    TreeNode node;
+    int left;
+    int right;
+    SubTreeObj(TreeNode node, int left, int right) {
+        this.node = node;
+        this.left = left;
+        this.right = right;
+    }
+}
+class Solution {
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        Stack<SubTreeObj> stack = new Stack<>();
+        TreeNode root = new TreeNode(0);
+        SubTreeObj obj = new SubTreeObj(root, 0, nums.length - 1);
+        stack.push(obj);
+        while(!stack.isEmpty()) {
+            SubTreeObj curr = stack.pop();
+            TreeNode node = curr.node;
+            int left = curr.left, right = curr.right;
+            int maxIdx = getMaxIndex(nums, left, right);
+            node.val = nums[maxIdx];
+
+            if(left <= maxIdx - 1) {
+              node.left = new TreeNode(0);
+              SubTreeObj leftObj = new SubTreeObj(node.left, left, maxIdx - 1);
+              stack.push(leftObj);
+            }
+            if(right >= maxIdx + 1) {
+              node.right = new TreeNode(0);
+              SubTreeObj rightObj = new SubTreeObj(node.right , maxIdx + 1, right);
+              stack.push(rightObj);
+            }
+
+        }
+
+        return root;
+    }
+
+    public int getMaxIndex(int[] nums, int left, int right) {
+        int maxIndex = left;
+        for(int currIdx = left; currIdx <= right; currIdx++) {
+            if(nums[currIdx] > nums[maxIndex]) {
+                maxIndex = currIdx;
+            }
+        }
+        return maxIndex;
+    }
+}
