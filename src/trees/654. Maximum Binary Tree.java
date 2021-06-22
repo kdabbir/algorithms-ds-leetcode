@@ -134,3 +134,5 @@ class Solution {
         return maxIndex;
     }
 }
+// Time: O(N ^ 2)
+// Space: O(N)
