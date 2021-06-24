@@ -8,12 +8,12 @@
 // Example 1:
 
 // Input: s = "aabbcc", k = 3
-// Output: "abcabc" 
+// Output: "abcabc"
 // Explanation: The same letters are at least distance 3 from each other.
 // Example 2:
 
 // Input: s = "aaabc", k = 3
-// Output: "" 
+// Output: ""
 // Explanation: It is not possible to rearrange the string.
 // Example 3:
 
@@ -40,23 +40,23 @@ class Solution {
         // Input validations.
         if(s == null || s.length() == 0) return "";
         if(k == 0) return s;
-        
+
         HashMap<Character, Integer> charCount = new HashMap<>();
         for(char str: s.toCharArray()){
             charCount.put(str, charCount.getOrDefault(str, 0) + 1);
         }
-        
+
         PriorityQueue<Character> maxHeap = new PriorityQueue<>((a,b) -> charCount.get(b) - charCount.get(a));
         maxHeap.addAll(charCount.keySet());
-                
-        Queue<Character> waitQueue = new LinkedList<>();
+
+        Queue<Character> waitQueue = new    LinkedList<>();
         StringBuilder res = new StringBuilder();
         while(!maxHeap.isEmpty()){
             char curr = maxHeap.remove();
             res.append(curr);
             charCount.put(curr, charCount.get(curr) - 1);
             waitQueue.add(curr);
-            
+
             if(waitQueue.size() < k){
                 continue;
             }
@@ -67,4 +67,45 @@ class Solution {
         }
         return res.length() == s.length() ? res.toString(): "";
     }
+}
+
+// Greedy approach
+// Every time we want to find the best candidate: which is the character with the largest remaining count. Thus we will be having two arrays.
+// One count array to store the remaining count of every character. Another array to keep track of the most left position that one character can appear.
+// We will iterated through these two array to find the best candidate for every position. Since the array is fixed size, it will take constant time to do this.
+// After we find the candidate, we update two arrays.
+
+// Time: O(n)
+// Space: O(n)
+
+public class Solution {
+    public String rearrangeString(String str, int k) {
+        int length = str.length();
+        int[] count = new int[26];
+        int[] valid = new int[26];
+        for(int i=0;i<length;i++){
+            count[str.charAt(i)-'a']++;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int index = 0;index<length;index++){
+            int candidatePos = findValidMax(count, valid, index);
+            if( candidatePos == -1) return "";
+            count[candidatePos]--;
+            valid[candidatePos] = index+k;
+            sb.append((char)('a'+candidatePos));
+        }
+        return sb.toString();
+    }
+
+   private int findValidMax(int[] count, int[] valid, int index){
+       int max = Integer.MIN_VALUE;
+       int candidatePos = -1;
+       for(int i=0;i<count.length;i++){
+           if(count[i]>0 && count[i]>max && index>=valid[i]){
+               max = count[i];
+               candidatePos = i;
+           }
+       }
+       return candidatePos;
+   }
 }
