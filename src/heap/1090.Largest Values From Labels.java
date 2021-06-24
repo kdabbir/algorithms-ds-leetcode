@@ -28,13 +28,32 @@
 // Input: values = [9,8,8,7,6], labels = [0,0,0,1,1], num_wanted = 3, use_limit = 2
 // Output: 24
 // Explanation: The subset chosen is the first, second, and fourth item.
- 
+
 
 // Note:
 
 // 1 <= values.length == labels.length <= 20000
 // 0 <= values[i], labels[i] <= 20000
 // 1 <= num_wanted, use_limit <= values.length
+
+// Alternate problem statement
+
+// You are given a sets of N items, each item have a value values[i] and a label labels[i].
+
+// You will need to pick out some items in the set. Being greedy, you want to maximize the total values of your items while following these constraints:
+
+// You can only choose maximum M items.
+// You can only choose maximum L items of the same label.
+// Return the maximum value of the items you pick.
+
+// Note:
+
+// 1 <= N <= 20,000
+// 0 <= values[i], labels[i] <= 20,000
+// 1 <= M, L <= N
+// N is values.length or labels.length
+// M is the num_wanted
+// L is the use_limit
 
 
 class Solution {
@@ -43,12 +62,12 @@ class Solution {
         for(int i = 0; i < values.length; i++){
             items.add(new Item(values[i], labels[i]));
         }
-        
+
         PriorityQueue<Item> maxHeap = new PriorityQueue<Item>((Item a, Item b) -> b.value - a.value);
-        maxHeap.addAll(items);            
-            
+        maxHeap.addAll(items);
+
         HashMap<Integer, Integer> itemCount = new HashMap<>();
-        int res = 0;        
+        int res = 0;
         while(!maxHeap.isEmpty() && num_wanted > 0){
             Item curr = maxHeap.remove();
             itemCount.put(curr.label, itemCount.getOrDefault(curr.label, 0) + 1);
@@ -56,17 +75,20 @@ class Solution {
                 res += curr.value;
                 num_wanted--;
             }
-        }              
-        return res;             
+        }
+        return res;
     }
-    
+
     public class Item {
         int value;
         int label;
-        
+
         public Item(int value, int label){
             this.value = value;
             this.label = label;
         }
     }
 }
+
+// Time: O(N)
+// Space: O(N)
