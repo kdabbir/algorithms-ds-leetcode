@@ -56,21 +56,21 @@
 
 class Solution {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return constructTreeRecursive(nums, 0, nums.length);
+        return constructTreeRecursive(nums, 0, nums.length - 1);
     }
 
     public TreeNode constructTreeRecursive(int[] nums, int left, int right) {
-        if(left == right) return null;
+        if(left > right) return null;
         int maxIndex = getMaxIndex(nums, left, right);
         TreeNode currNode = new TreeNode(nums[maxIndex]);
-        currNode.left = constructTreeRecursive(nums, left, maxIndex);
+        currNode.left = constructTreeRecursive(nums, left, maxIndex - 1);
         currNode.right = constructTreeRecursive(nums, maxIndex + 1, right);
         return currNode;
     }
 
     public int getMaxIndex(int[] nums, int left, int right) {
         int maxIndex = left;
-        for(int currIdx = left; currIdx < right; currIdx++) {
+        for(int currIdx = left; currIdx <= right; currIdx++) {
             if(nums[currIdx] > nums[maxIndex]) {
                 maxIndex = currIdx;
             }
