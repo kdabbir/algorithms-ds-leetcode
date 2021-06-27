@@ -75,8 +75,8 @@ class Solution {
 // We will iterated through these two array to find the best candidate for every position. Since the array is fixed size, it will take constant time to do this.
 // After we find the candidate, we update two arrays.
 
-// Time: O(n)
-// Space: O(n)
+// Time Complexity: O(n)
+// Space complexity: O(n)
 
 public class Solution {
     public String rearrangeString(String str, int k) {
