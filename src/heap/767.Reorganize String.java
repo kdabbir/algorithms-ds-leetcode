@@ -23,7 +23,6 @@
 
 class Solution {
     public String reorganizeString(String S) {
-       // Input validations.
         if(S == null || S.length() == 0) return "";
         int k = 2;
 
