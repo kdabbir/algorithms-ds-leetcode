@@ -67,7 +67,9 @@ class Solution {
         for(int i = 0; i < S.length(); i++){
             charCount.put(S.charAt(i), charCount.getOrDefault(S.charAt(i), 0) + 1);
         }
+
         //System.out.print(charCount);
+
         PriorityQueue<Character> maxHeap = new PriorityQueue<>((a,b) -> charCount.get(b) - charCount.get(a));
         maxHeap.addAll(charCount.keySet());
         StringBuilder outputStr = new StringBuilder();
