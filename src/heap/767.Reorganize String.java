@@ -58,7 +58,6 @@ class Solution {
 
 // Approach #2: Greedy with Heap [Accepted]
 // Time Complexity:O(NlogA)), where N is the length of S, and A is the size of the alphabet. If A is fixed, this complexity is O(N).
-
 // Space Complexity: O(A) If A is fixed, this complexity is O(1)
 
 class Solution {
@@ -67,9 +66,6 @@ class Solution {
         for(int i = 0; i < S.length(); i++){
             charCount.put(S.charAt(i), charCount.getOrDefault(S.charAt(i), 0) + 1);
         }
-
-        //System.out.print(charCount);
-
         PriorityQueue<Character> maxHeap = new PriorityQueue<>((a,b) -> charCount.get(b) - charCount.get(a));
         maxHeap.addAll(charCount.keySet());
         StringBuilder outputStr = new StringBuilder();
