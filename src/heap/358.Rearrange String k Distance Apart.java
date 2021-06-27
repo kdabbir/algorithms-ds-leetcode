@@ -73,7 +73,7 @@ class Solution {
 // Every time we want to find the best candidate: which is the character with the largest remaining count. Thus we will be having two arrays.
 // One count array to store the remaining count of every character. Another array to keep track of the most left position that one character can appear.
 // We will iterated through these two array to find the best candidate for every position. Since the array is fixed size, it will take constant time to do this.
-// After we find the candidate, we pdate two arrays.
+// After we find the candidate, we update two arrays.
 
 // Time Complexity: O(n)
 // Space complexity: O(n)
