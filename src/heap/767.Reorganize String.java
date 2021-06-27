@@ -20,21 +20,22 @@
 // The greedy algorithm is that in each step, select the char with highest remaining count if possible (if it is not in the waiting queue). PQ is used to achieve the greedy. A regular queue waitQueue is used to "freeze" previous appeared char in the period of k.
 
 // In each iteration, we need to add current char to the waitQueue and also release the char at front of the queue, put back to maxHeap. The "impossible" case happens when the maxHeap is empty but there is still some char in the waitQueue.
+// S will consist of lowercase letters and have length in range [1, 500].
 
 class Solution {
     public String reorganizeString(String S) {
        // Input validations.
         if(S == null || S.length() == 0) return "";
         int k = 2;
-        
+
         HashMap<Character, Integer> charCount = new HashMap<>();
         for(char str: S.toCharArray()){
             charCount.put(str, charCount.getOrDefault(str, 0) + 1);
         }
-        
+
         PriorityQueue<Character> maxHeap = new PriorityQueue<>((a,b) -> charCount.get(b) - charCount.get(a));
         maxHeap.addAll(charCount.keySet());
-                
+
         Queue<Character> waitQueue = new LinkedList<>();
         StringBuilder res = new StringBuilder();
         while(!maxHeap.isEmpty()){
@@ -42,7 +43,7 @@ class Solution {
             res.append(curr);
             charCount.put(curr, charCount.get(curr) - 1);
             waitQueue.add(curr);
-            
+
             if(waitQueue.size() < k){
                 continue;
             }
@@ -56,7 +57,6 @@ class Solution {
 }
 
 
-// S will consist of lowercase letters and have length in range [1, 500].
 // Approach #2: Greedy with Heap [Accepted]
 // Time Complexity:O(NlogA)), where N is the length of S, and A is the size of the alphabet. If A is fixed, this complexity is O(N).
 
@@ -84,17 +84,17 @@ class Solution {
             if(charCount.get(next) > 0)
                 maxHeap.add(next);
         }
-        
+
         if(!maxHeap.isEmpty()){
             char last = maxHeap.remove();
-            if(charCount.get(last) > 1){ 
+            if(charCount.get(last) > 1){
                 return "";
             }
             else {
-                outputStr.append(last);   
+                outputStr.append(last);
             }
         }
-        
+
         return outputStr.toString();
     }
 }
