@@ -6,7 +6,6 @@
 // If possible, output any possible result.  If not possible, return the empty string.
 
 // Example 1:
-
 // Input: S = "aab"
 // Output: "aba"
 // Example 2:
