@@ -40,6 +40,9 @@
 // 0 <= startj < endj <= 109
 // endj < startj+1
 
+
+// Two pointers.Refer to doc for intuition.
+
 class Solution {
     public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
         List<int[]> intersectionList = new ArrayList<>();
