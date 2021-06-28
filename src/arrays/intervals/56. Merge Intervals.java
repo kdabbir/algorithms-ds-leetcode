@@ -35,7 +35,32 @@ class Solution {
         }
         return intervalList.toArray(new int[intervalList.size()][]);
     }
-}
 
 // Time: O(NLogN)
 // Space: O(N)
+
+// Alternate approach
+
+public List<Interval> merge(List<Interval> intervals) {
+    if(intervals == null || intervals.size() == 0) return Collections.emptyList();
+    Collections.sort(intervals,new Comparator<Interval>(){
+        public int compare (Interval i1, Interval i2){
+            return i1.start - i2.start;
+        }
+    });
+    List<Interval> list = new LinkedList<>();
+    Interval pre = new Interval(intervals.get(0).start,intervals.get(0).end);
+    for(Interval curr: intervals){
+        if(pre.end < curr.start) {
+            list.add(pre);
+            pre = curr;
+        }else {
+            pre.start = Math.min(pre.start, curr.start);
+            pre.end = Math.max(pre.end, curr.end);
+        }
+    }
+    list.add(pre);
+    return list;
+}
+
+}
