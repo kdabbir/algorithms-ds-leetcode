@@ -81,3 +81,39 @@ public class Solution {
 }
 // Time: O(m + n)
 // Space: O(1)
+
+
+// Double binary search
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        boolean found = false;
+        for(int[] rows: matrix) {
+             if(binarySearchRow(rows, target)) {
+                 found = true;
+                 break;
+             }
+        }
+        return found;
+    }
+
+    public boolean binarySearchRow(int[] row, int target) {
+        int start = 0, end = row.length - 1;
+        while(start <= end) {
+            int mid = start + (end - start)/2;
+            if(row[mid] == target) {
+                return true;
+            } else if(row[mid] > target) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return false;
+    }
+}
+
+// For every row do the binary search
+
+// Time: O(Log(N) + Log(M))
+// Space: O(1)
