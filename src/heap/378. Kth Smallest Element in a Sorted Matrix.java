@@ -67,3 +67,50 @@ class Solution {
         return currElement.value;
     }
 }
+
+// Using binary search
+
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+       int matLen = matrix.length;
+       int start = matrix[0][0], end = matrix[matLen - 1][matLen - 1];
+        while(start < end) {
+            int mid = start + (end - start)/2;
+            // first number is the smallest and the second number is the largest
+            int[] startEndPair = {matrix[0][0],matrix[matLen - 1][matLen - 1]};
+            int countOfValuesLessThanMid = countLessThanMid(matrix, mid, startEndPair);
+            if(countOfValuesLessThanMid == k ) {
+                return startEndPair[0];
+            } else if(countOfValuesLessThanMid < k) { // search higher since we need a bigger left half.
+                start = startEndPair[1];
+            } else {
+                end = startEndPair[0]; // search lower
+            }
+        }
+        return start;
+
+    }
+
+    public int countLessThanMid(int[][] matrix, int mid, int[] startEndPair) {
+        int matLen = matrix.length,  row = matLen - 1,  col = 0;
+        int count = 0;
+        while(row >= 0 && col < matLen) {
+            if(matrix[row][col] > mid) {
+                 // as matrix[row][col] is bigger than the mid, let's keep track of the
+                 // smallest number greater than the mid
+                startEndPair[1] = Math.min(startEndPair[1], matrix[row][col]);
+                row--;
+            } else {
+                 // as matrix[row][col] is less than or equal to the mid, let's keep track of the
+                 // biggest number less than or equal to the mid
+                startEndPair[0] = Math.max(startEndPair[0], matrix[row][col]);
+                count+= row + 1;
+                col++;
+            }
+        }
+        return count;
+    }
+}
+
+// Time: O(N X Log(Max-Min))
+// Space: O(1)
