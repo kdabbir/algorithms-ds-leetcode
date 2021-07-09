@@ -27,6 +27,31 @@
 // arr is sorted in ascending order.
 // -104 <= arr[i], x <= 104
 
+// Binary search to land at closest range and expand window by k length
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> result = new ArrayList<Integer>();
+        int start = 0, end = arr.length - k;
+        while(start < end) {
+            int mid = start + (end - start) / 2;
+            if(x - arr[mid] > arr[mid + k] - x ) {
+               start = mid + 1;
+            } else {
+               end = mid;
+            }
+        }
+
+        for(int i = start; i < start + k; i++) {
+            result.add(arr[i]);
+        }
+        return result;
+    }
+}
+// Time: O(log(N - k) + K)
+// Space: O(1)
+
+
 // Binary search to find closest position and expand left and right pointers to find k elements.
 
 class Solution {
@@ -66,3 +91,26 @@ class Solution {
 
 // Time: O(NLogN + K)
 // Space: O(1)
+
+// Sort with custom comparator
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        // Convert from array to list first to make use of Collections.sort()
+        List<Integer> sortedArr = new ArrayList<Integer>();
+        for (int num: arr) {
+            sortedArr.add(num);
+        }
+
+        // Sort using custom comparator
+        Collections.sort(sortedArr, (num1, num2) -> Math.abs(num1 - x) - Math.abs(num2 - x));
+
+        // Only take k elements
+        sortedArr = sortedArr.subList(0, k);
+
+        // Sort again to have output in ascending order
+        Collections.sort(sortedArr);
+        return sortedArr;
+    }
+}
+
