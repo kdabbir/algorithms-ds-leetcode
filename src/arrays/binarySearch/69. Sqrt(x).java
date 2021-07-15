@@ -23,6 +23,8 @@
 
 // 0 <= x <= 231 - 1
 
+// Template -1 Binary Search
+
 class Solution {
     public int mySqrt(int x) {
         if(x < 2) return x;
