@@ -22,6 +22,8 @@
 // Input: nums = [1], target = 0
 // Output: -1
 
+// Template #1 Binary search solution
+
 class Solution {
     public int search(int[] nums, int target) {
         int start = 0, end = nums.length - 1;
@@ -31,10 +33,10 @@ class Solution {
 
             // Idea here is we land either at sorted or unsorted part of array.
             // Here we are checking if we landed at sorted part of array.
-        
+
             else if(nums[mid] >= nums[start]) { // Is left side sorted? i.e Start <= Mid.
                 if(target >= nums[start] && target < nums[mid]) end = mid-1; // If element exists between start and mid, check in left sorted side.
-                else start = mid+1; 
+                else start = mid+1;
             // Here we are checking the unsorted part.
 
             } else { // We are in unsorted part of array, we check if right side is sorted.
